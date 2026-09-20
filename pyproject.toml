@@ -1,0 +1,40 @@
+[project]
+name = "qq-ai-bot"
+version = "0.1.0"
+description = "A small, testable OneBot 11 client for a NapCat QQ bot"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.115,<1",
+    "httpx>=0.28,<1",
+    "openai>=2,<3",
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.8,<3",
+    "uvicorn>=0.30,<1",
+    "websockets>=15,<18",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8,<10",
+    "pytest-asyncio>=1,<2",
+    "ruff>=0.12,<1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["error"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+# Preserve the user-provided specification, including illustrative code snippets.
+extend-exclude = ["SPEC.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+# OneBot public APIs deliberately expose request deadlines as timeout arguments.
+ignore = ["ASYNC109"]
